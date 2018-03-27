@@ -15,9 +15,46 @@ var todoStorage = {
 	}
 };
 
+var filters = {
+	all: function(todos) {
+		return todos;
+	}
+};
+
 var app = new Vue({
 	data: {
-		newTodo: ' '
+		todos: todoStorage.fetch(),
+		newTodo: ' ',
+		visibility: 'all'
+	},
+	watch: {
+		todos: {
+			handler: function(todos) {
+				// console.log('save');
+				todoStorage.save(todos);
+			},
+			deep: true
+		}
+	},
+	computed: {
+		filteredTodos: function() {
+			return filters[this.visibility](this.todos);
+		}
+	},
+	methods: {
+		addTodo: function() {
+			var value = this.newTodo && this.newTodo.trim();
+			if (!value) {
+				return;
+			}
+			this.todos.push({
+				id: todoStorage.uid++,
+				title: value,
+				completed: false
+			});
+			// todoStorage.save(this.todos);
+			this.newTodo = '';
+		}
 	}
 });
 
