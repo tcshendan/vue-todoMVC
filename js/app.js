@@ -25,6 +25,7 @@ var app = new Vue({
 	data: {
 		todos: todoStorage.fetch(),
 		newTodo: ' ',
+		editedTodo: null,
 		visibility: 'all'
 	},
 	watch: {
@@ -57,6 +58,32 @@ var app = new Vue({
 		},
 		removeTodo: function(todo) {
 			this.todos.splice(this.todos.indexOf(todo), 1);
+		},
+		editTodo: function(todo) {
+			this.beforeEditCache = todo.title;
+			this.editedTodo = todo;
+			//console.log(this.editTodo);
+		},
+		doneEdit: function(todo) {
+			if (!this.editedTodo) {
+				return;
+			}
+			this.editedTodo = null;
+			todo.title = todo.title.trim();
+			if (!todo.title) {
+				this.removeTodo(todo);
+			}
+		},
+		cancelEdit: function(todo) {
+			this.editedTodo = null;
+			todo.title = this.beforeEditCache;
+		}
+	},
+	directives: {
+		'todo-focus': function(el, binding) {
+			if (binding.value) {
+				el.focus();
+			}
 		}
 	}
 });
