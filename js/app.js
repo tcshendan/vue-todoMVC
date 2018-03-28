@@ -18,6 +18,12 @@ var todoStorage = {
 var filters = {
 	all: function(todos) {
 		return todos;
+	},
+	active: function(todos) {
+		return todos.filter(function(todo) {
+			//console.log(todo);
+			return !todo.completed;
+		});
 	}
 };
 
@@ -77,6 +83,9 @@ var app = new Vue({
 		cancelEdit: function(todo) {
 			this.editedTodo = null;
 			todo.title = this.beforeEditCache;
+		},
+		removeCompleted: function() {
+			this.todos = filters.active(this.todos);
 		}
 	},
 	directives: {
