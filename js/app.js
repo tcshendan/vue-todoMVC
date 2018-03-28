@@ -54,6 +54,9 @@ var app = new Vue({
 			});
 			// todoStorage.save(this.todos);
 			this.newTodo = '';
+		},
+		removeTodo: function(todo) {
+			this.todos.splice(this.todos.indexOf(todo), 1);
 		}
 	}
 });
