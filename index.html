@@ -41,13 +41,13 @@
 			<!-- Remove this if you don't implement routing -->
 			<ul class="filters">
 				<li>
-					<a class="selected" href="#/">All</a>
+					<a href="#/" :class="{selected: visibility == 'all'}">All</a>
 				</li>
 				<li>
-					<a href="#/active">Active</a>
+					<a href="#/active" :class="{selected: visibility == 'active'}">Active</a>
 				</li>
 				<li>
-					<a href="#/completed">Completed</a>
+					<a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a>
 				</li>
 			</ul>
 			<!-- Hidden if no completed items are left ↓ -->
