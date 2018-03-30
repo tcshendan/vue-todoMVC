@@ -37,7 +37,9 @@
 		<!-- This footer should hidden by default and shown when there are todos -->
 		<footer class="footer" v-show="todos.length" v-cloak>
 			<!-- This should be `0 items left` by default -->
-			<span class="todo-count"><strong>{{todos.length}}</strong> item left</span>
+			<span class="todo-count">
+				<strong>{{remaining}}</strong> {{remaining | pluralize}} left
+			</span>
 			<!-- Remove this if you don't implement routing -->
 			<ul class="filters">
 				<li>
